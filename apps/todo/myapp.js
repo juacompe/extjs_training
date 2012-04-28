@@ -115,6 +115,15 @@ Ext.onReady(function() {
         delegate: 'a'
     });
 
+    Ext.get('toggle-all').on('click', function(e, t) {
+        store.each(function(model) {
+            var flag = t.checked;
+            console.log(flag);
+            model.set('done', flag);
+        })
+        updateFooter();
+    });
+
     var updateFooter = function() {
         footer_template.overwrite(Ext.get('footer'), {
             remaining: store.remaining(),
