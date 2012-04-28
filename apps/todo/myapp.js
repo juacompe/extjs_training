@@ -51,6 +51,12 @@ Ext.onReady(function() {
             });
             return done_items.length;
           }
+        , clear: function() {
+            var done_items = this.queryBy(function(model) {
+                return model.get('done');
+            });
+            return this.remove(done_items.items);
+          }
     });
 
     var todo_list = Ext.get('todo-list');
@@ -104,6 +110,10 @@ Ext.onReady(function() {
         , '<div id="todo-count">'
         ,   '{remaining} left'
         , '</div>');
+
+    Ext.get('footer').on('click', store.clear, store, {
+        delegate: 'a'
+    });
 
     var updateFooter = function() {
         footer_template.overwrite(Ext.get('footer'), {
